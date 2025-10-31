@@ -48,13 +48,32 @@
 					<h:outputText value="#{aluno.prontuario}" />
 				</p:column>		
 
-				<p:column headerText="Frase">
-					<h:outputText value="#{aluno.frase}" />
-				</p:column>	
+				<p:column headerText="telefone">
+					<h:outputText value="#{aluno.telefone}" />
+				</p:column>		
+
+				<p:column headerText="data de nascimento">
+					<h:outputText value="#{aluno.datanascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>		
+
+				<p:column headerText="Salário">
+    				<h:outputText value="#{aluno.salario}">
+        			<f:convertNumber type="currency"
+                         currencySymbol="R$ "
+                         locale="pt_BR"
+                         minFractionDigits="2"
+                         maxFractionDigits="6" />
+    				</h:outputText>
+				</p:column>
+
 
 				<p:column headerText="Boo">
 					<h:outputText value="#{aluno.boo}" />
 				</p:column>	
+
+				
 
 
 				<p:column headerText="Operações">					
@@ -93,14 +112,28 @@
 			<p:outputLabel for="Pront" value="Prontuario: " />
 			<p:inputText id="Pront" value="#{manterAlunoBean.aluno.prontuario}" />
 
-			<p:outputLabel for="fr" value="Frase: " />
-			<p:inputText id="fr" value="#{manterAlunoBean.aluno.frase}" />
-
 			<p:outputLabel for="nome" value="Nome: " />
 			<p:inputText id="nome" value="#{manterAlunoBean.aluno.nome}" />
 
 			<p:outputLabel for="sobre" value="sobrenome: " />
 			<p:inputText id="sobre" value="#{manterAlunoBean.aluno.sobrenome}" />
+
+			 <p:outputLabel for="data" value="datanascimento" />
+            <p:inputMask id="data" value="#{manterAlunoBean.aluno.datanascimento}" mask="99/99/9999">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:inputMask> 
+	
+            <p:outputLabel for="telefone" value="telefone" />
+            <p:inputMask id="telefone" value="#{manterAlunoBean.aluno.telefone}" mask="(99) 9999-9999" validateMask="true" />
+
+			 <p:outputLabel for="salario" value="salario"/>
+                <p:inputNumber id="salario" value="#{manterAlunoBean.aluno.salario}" decimalPlaces="6" />
+
+				    <p:selectOneMenu id="city" value="#{manterAlunoBean.Aluno.professor}" editable="true">
+                    <f:selectItem itemLabel="Selecione um Professor"/>
+                    <f:selectItems value="#{manterAlunoBean.professores}"/>
+						var="professor" itemLabel=""
+                </p:selectOneMenu>
 
 			<p:outputLabel for="Inativo"/>
         			 <p:selectBooleanCheckbox value="#{manterAlunoBean.aluno.boo}" itemLabel="Basic"/>
@@ -111,7 +144,11 @@
 				actionListener="#{manterAlunoBean.salvar}"
 				oncomplete="if (!args.validationFailed) PF('editarDialogWidgetVar').hide()"
 				update="growl alunosTable" process="@this grid">
-			</p:commandButton>						
+			</p:commandButton>		
+			
+			
+           
+     
 			
 		</p:panelGrid>
 
